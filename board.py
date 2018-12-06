@@ -33,14 +33,8 @@ class Cell(pygame.sprite.Sprite):
         return self.state
 
     def set_state(self, value):
-
-        if value == 1:
-            self.change_color(WHITE)
-        else:
-            self.change_color(BLACK)
-
-
         self.state = value
+        self.change_color(self.get_color())
 
     def get_color(self):
         color = BLACK
