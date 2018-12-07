@@ -1,8 +1,9 @@
 import random
 import pygame
 import globals
-WHITE = (255,255,255)
-BLACK = (0,0,0)
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+
 
 class Cell(pygame.sprite.Sprite):
 
@@ -43,7 +44,6 @@ class Cell(pygame.sprite.Sprite):
             color = WHITE
 
         return color
-
 
     def change_color(self, color):
         self.color = color
@@ -98,8 +98,6 @@ class Board:
         x = int(cell.rect.x / cell.width)
         y = int(cell.rect.y / cell.height)
 
-        #print(y, x)
-
         x_coords = [x - 1, x, x + 1]
         y_coords = [y - 1, y, y + 1]
 
@@ -118,7 +116,6 @@ class Board:
             num_alive -= 1
 
         return num_alive
-
 
     def step(self):
         updated_board = [list() for i in range(self.height)]

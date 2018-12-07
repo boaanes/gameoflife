@@ -3,3 +3,5 @@ SCREEN_HEIGHT = 900
 
 WIDTH = 80
 HEIGHT = 45
+
+PATTERN = 'gun'
