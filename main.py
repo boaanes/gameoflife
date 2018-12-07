@@ -5,18 +5,19 @@ from board import Board
 
 pygame.init()
 
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-
-color_list = (WHITE, BLACK)
-
 size = (globals.SCREEN_WIDTH, globals.SCREEN_HEIGHT)
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption("Game of Life")
-
+sprites = pygame.sprite.Group()
 clock = pygame.time.Clock()
 
-sprites = pygame.sprite.Group()
+
+def render_board(board, width, height):
+    for y, column in enumerate(board):
+        for x, cell in enumerate(board[y]):
+            cell.rect.x = globals.SCREEN_WIDTH/width * x
+            cell.rect.y = globals.SCREEN_HEIGHT/height * y
+            sprites.add(cell)
 
 
 def game(pat, width, height):
@@ -24,24 +25,14 @@ def game(pat, width, height):
 
     field = Board(width, height)
     setup = pattern.set_pattern(pat, width, height)
-
     field.board = setup
 
-    for y, column in enumerate(field.board):
-        for x, cell in enumerate(field.board[y]):
-            cell.rect.x = globals.SCREEN_WIDTH/width * x
-            cell.rect.y = globals.SCREEN_WIDTH/width * y
-            sprites.add(cell)
+    render_board(field.board, width, height)
 
     while loop:
 
         sprites.empty()
-
-        for y, column in enumerate(field.board):
-            for x, cell in enumerate(field.board[y]):
-                cell.rect.x = globals.SCREEN_WIDTH/width * x
-                cell.rect.y = globals.SCREEN_HEIGHT/height * y
-                sprites.add(cell)
+        render_board(field.board, width, height)
 
         if field.get_alive() == 0:
             loop = False
@@ -53,7 +44,7 @@ def game(pat, width, height):
                 if event.key == pygame.K_ESCAPE:
                     loop = False
 
-        screen.fill(BLACK)
+        screen.fill(globals.BLACK)
         sprites.draw(screen)
         pygame.display.flip()
 

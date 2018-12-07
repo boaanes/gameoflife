@@ -1,8 +1,6 @@
 import random
 import pygame
 import globals
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
 
 
 class Cell(pygame.sprite.Sprite):
@@ -13,8 +11,8 @@ class Cell(pygame.sprite.Sprite):
         self.state = random.choice([0, 1])
 
         self.image = pygame.Surface([globals.SCREEN_WIDTH/globals.WIDTH, globals.SCREEN_WIDTH/globals.WIDTH])
-        self.image.fill(BLACK)
-        self.image.set_colorkey(BLACK)
+        self.image.fill(globals.BLACK)
+        self.image.set_colorkey(globals.BLACK)
 
         self.width = globals.SCREEN_WIDTH/globals.WIDTH
         self.height = globals.SCREEN_HEIGHT/globals.HEIGHT
@@ -25,10 +23,10 @@ class Cell(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
 
     def __repr__(self):
-        return str(self.state)
-
-    def __str__(self):
-        return str(self.state)
+        status = 'dead'
+        if self.state == 1:
+            status = 'alive'
+        return f'Cell(({int(self.rect.x / self.width)}, {int(self.rect.y / self.height)}), {status})'
 
     def get_state(self):
         return self.state
@@ -38,10 +36,10 @@ class Cell(pygame.sprite.Sprite):
         self.change_color(self.get_color())
 
     def get_color(self):
-        color = BLACK
+        color = globals.BLACK
 
         if self.state == 1:
-            color = WHITE
+            color = globals.WHITE
 
         return color
 
@@ -67,14 +65,6 @@ class Board:
             self.board.append(current_row)
 
     def __repr__(self):
-        output = ""
-
-        for row in self.board:
-            output += f'{row}\n'
-
-        return output
-
-    def __str__(self):
         output = ""
 
         for row in self.board:
@@ -108,7 +98,6 @@ class Board:
             for x_coord in x_coords:
                 if x_coord < 0 or x_coord > self.width - 1:
                     continue
-
                 if self.board[y_coord][x_coord].get_state() == 1:
                     num_alive += 1
 
@@ -118,10 +107,10 @@ class Board:
         return num_alive
 
     def step(self):
-        updated_board = [list() for i in range(self.height)]
+        updated_board = [list() for _ in range(self.height)]
         for row in updated_board:
             for element in range(self.width):
-                row.append(' ')
+                row.append(0)
 
         current_board = self.board
 
@@ -148,4 +137,3 @@ class Board:
                         updated_board[y][x].set_state(0)
 
         self.board = updated_board
-
