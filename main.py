@@ -91,8 +91,8 @@ def game(width, height):
                 sprites.add(cell)
 
 
-        #if field.get_alive() == 0:
-            #loop = False
+        if field.get_alive() == 0:
+            loop = False
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
