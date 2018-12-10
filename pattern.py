@@ -51,6 +51,9 @@ PATTERNS = {
 def set_pattern(pattern, width, height):
     assert (pattern in PATTERNS or pattern == 'random'), f'{pattern} is not a valid pattern!'
 
+    if (width != 80 or height != 45) and pattern != 'random':
+        return 0
+
     if pattern == 'random':
         return Board(width, height).board
 

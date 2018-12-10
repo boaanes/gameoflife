@@ -1,8 +1,10 @@
 import pygame
 import globals
 import pattern
+import os
 from board import Board
 
+os.environ['SDL_VIDEO_CENTERED'] = '1'
 pygame.init()
 
 size = (globals.SCREEN_WIDTH, globals.SCREEN_HEIGHT)
@@ -25,6 +27,8 @@ def game(pat, width, height):
 
     field = Board(width, height)
     setup = pattern.set_pattern(pat, width, height)
+    assert setup != 0, 'Pre-defined patterns only work if width is 80, and height is 45!'
+
     field.board = setup
 
     render_board(field.board, width, height)
