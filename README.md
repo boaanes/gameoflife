@@ -1,3 +1,3 @@
 # Pygame Game of Life
-Game of Life in python pygame
 ---
+Game of Life, made in Python PyGame
